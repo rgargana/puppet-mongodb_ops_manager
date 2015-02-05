@@ -1,0 +1,20 @@
+{
+  "name": "neillturner-mongodb_ops_manager",
+  "version": "0.0.1",
+  "author": "neillturner",
+  "license": "Apache-2.0",
+  "summary": "MongoDB Ops Manager (MMS on premise) server and agent installs",
+  "source": "https://github.com/neillturner/puppet-mongodb_ops_manager.git",
+  "project_page": "https://github.com/neillturner/puppet-mongodb_ops_manager",
+  "issues_url": "https://github.com/neillturner/puppet-mongodb_ops_manager/issues",
+  "operatingsystem_support": [
+    {
+    "operatingsystem":"RedHat",
+    "operatingsystemrelease":[ "5.0", "6.0" ]
+    }
+   ],
+  "dependencies": [
+    { "name": "puppetlabs/mongodb" },
+    { "name": "stahnma/epel"}
+  ]
+}

@@ -1,0 +1,20 @@
+mms.centralUrl=http://<%= @mms_host %>:8080
+mms.backupCentralUrl=http://<%= @mms_host %>:8081
+mms.fromEmailAddr=<%= @from_email_addr %>
+mms.replyToEmailAddr=<%= @reply_to_email_addr %>
+mms.adminFromEmailAddr=<%= @admin_from_email_addr %>
+mms.adminEmailAddr=<%= @admin_email_addr %>
+<% if @bounce_email_addr %>
+mms.bounceEmailAddr=<%= @bounce_email_addr %>
+<% end %>
+mongo.mongoUri=mongodb://<%= @db_host %>:<%= @db_port %>/
+mms.mail.hostname=<%= @mail_hostname %>
+mms.mail.port=<%= @mail_port %>
+<% if @aws_accesskey %>
+aws.accesskey=<%= @aws_accesskey %>
+<% end %>
+<% if @aws_secretkey %>
+aws.secretkey=<%= @aws_secretkey %>
+<% end %>
+mms.emailDaoClass=<%= @email_dao_class %>
+
