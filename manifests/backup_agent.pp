@@ -6,7 +6,7 @@
 class mongodb_ops_manager::backup_agent(
   $mmsApiKey   = '',
   $version     = '2.3.3.209-1',
-  $mmsBaseUrl  = 'http://127.0.0.1:8081',
+  $mmsBaseUrl  = '127.0.0.1:8081',  # no http://
 )
 {
 
