@@ -19,7 +19,7 @@ Currently the scripts don't support authentication or replica sets for applicati
 Minimal Usage: 
 =============
 
-First setup a backup mongodb on a separate server 
+1. Setup a backup mongodb on a separate server 
 
     class { 'mongodb_ops_manager::backup_db':
       logpath      => '/data/backupdb/mongodb.log',
@@ -27,8 +27,7 @@ First setup a backup mongodb on a separate server
       version      => '2.6.4-1',  
     }
   
-Then on the mms server setup the application db, the mms application, backup application, 
-monitoring and backup agents:
+2. On the mms server install the application db, the mms application, backup daemon
 
     class { 'mongodb_ops_manager::application_db':
       logpath      => '/data/mmsdb/mongodb.log',
@@ -37,6 +36,7 @@ monitoring and backup agents:
     }
   
     class { 'mongodb_ops_manager::application':
+      mms_host              => 'mms.mycompany.com",
       from_email_addr       => 'mms-admin@company.com',
       reply_to_email_addr   => 'mms-admin@company.com',
       admin_from_email_addr => 'mms-admin@company.com',
@@ -50,15 +50,18 @@ monitoring and backup agents:
     class { 'mongodb_ops_manager::backup':
       backup_db_host => 'backupserver',
       require        => Class['mongodb_ops_manager::application']
-    }  
+    } 
+    
+3. Logon to the mms server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
+    
+4. On the mms server install monitoring and backup agents specifying the mmiApiKey:    
   
-    class { 'mongodb_ops_manager::mms_agent': 
-      require => Class['mongodb_ops_manager::backup']
+    class { 'mongodb_ops_manager::monitoring_agent':
+      mmsApiKey => 'mmsApiKey'
     } 
 
     class { 'mongodb_ops_manager::backup_agent':
-      mmsApiKey => 'mmsApiKey',
-      require   => Class['mongodb_ops_manager::mms_agent']   
+      mmsApiKey => 'mmsApiKey'
     } 
  
 
