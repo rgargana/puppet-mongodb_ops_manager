@@ -30,7 +30,7 @@ class mongodb_ops_manager::application (
     path   => '/etc/sudoers',
     line   => 'Defaults:root !requiretty'
   }
-
+  
   exec { 'download-mms-onprem':
     command     => "curl -OL https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-${version}.x86_64.rpm",
     cwd         => '/tmp',
