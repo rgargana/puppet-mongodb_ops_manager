@@ -13,7 +13,8 @@ It relies on puppet module puppetlabs/mongodb to install the mongodb database.
 The mms application and mms mongodb database can be installed on one server.
 The backup database should be first installed on another server.
 
-Currently the scripts don't support authentication or replica sets for application and backup databases 
+Currently the scripts don't support authentication or replica sets for application and backup databases. 
+This is a very much a first version and current support readhat/centos.  
 
 
 Minimal Usage: 
