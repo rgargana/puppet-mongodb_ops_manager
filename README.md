@@ -68,4 +68,18 @@ Detailed Usage:
 TO COME:
 
 
+Ulimits:
+========
+
+    Remove the default ulimit settings that come with the operating system:
+
+    sudo rm /etc/security/limits.d/90-nproc.conf
+    Edit the /etc/security/limits.conf file to configure the following settings:
+
+    * soft nofile 64000
+    * hard nofile 64000
+    * soft nproc 32000
+    * hard nproc 32000
+
+
   
