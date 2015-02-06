@@ -19,7 +19,7 @@ Currently the scripts don't support authentication or replica sets for applicati
 Minimal Usage: 
 =============
 
-1. Setup a backup mongodb on a separate server 
+Setup a backup mongodb on a separate server 
 
     class { 'mongodb_ops_manager::backup_db':
       logpath      => '/data/backupdb/mongodb.log',
@@ -27,7 +27,7 @@ Minimal Usage:
       version      => '2.6.4-1',  
     }
   
-2. On the mms server install the application db, the mms application, backup daemon
+On the mms server install the application db, the mms application, backup daemon
 
     class { 'mongodb_ops_manager::application_db':
       logpath      => '/data/mmsdb/mongodb.log',
@@ -52,9 +52,9 @@ Minimal Usage:
       require        => Class['mongodb_ops_manager::application']
     } 
     
-3. Logon to the mms server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
+Logon to the mms server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
     
-4. On the mms server install monitoring and backup agents specifying the mmiApiKey:    
+On the mms server install monitoring and backup agents specifying the mmiApiKey:    
   
     class { 'mongodb_ops_manager::monitoring_agent':
       mmsApiKey => 'mmsApiKey'
