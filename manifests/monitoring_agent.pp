@@ -5,21 +5,22 @@
 #
 class mongodb_ops_manager::monitoring_agent(
   $mmsApiKey   = '',
-  $version     = 'latest',
+  $version     = '2.5.15.1526-1',
+  $platform    = 'rhel7',
   $mmsBaseUrl  = 'http://127.0.0.1:8080',
 )
 {
 
   exec { 'download-mms-monitoring-agent':
-    command => "curl -OL ${mmsBaseUrl}/download/agent/monitoring/mongodb-mms-monitoring-agent-${version}.x86_64.rpm",
+    command => "curl -OL ${mmsBaseUrl}/download/agent/automation/mongodb-mms-automation-agent-manager-${version}.x86_64.${platform}.rpm",
     cwd     => '/tmp',
-    creates => "/tmp/mongodb-mms-monitoring-agent-${version}.x86_64.rpm",
+    creates => "/tmp/mongodb-mms-monitoring-agent-${version}.x86_64${platform}.rpm",
   }
 
   exec { 'install-mms-monitoring-agent':
     cwd     => '/tmp',
     creates => '/usr/bin/mongodb-mms-monitoring-agent',
-    command => "rpm -U  \"/tmp/mongodb-mms-monitoring-agent-${version}.x86_64.rpm\"",
+    command => "rpm -U  \"/tmp/mongodb-mms-monitoring-agent-${version}.x86_64${platform}.rpm\"",
     require => Exec['download-mms-monitoring-agent'],
     timeout => 0
   }
