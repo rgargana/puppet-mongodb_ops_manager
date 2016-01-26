@@ -38,6 +38,7 @@ class mongodb_ops_manager::monitoring_agent(
     enable    => true,
     hasstatus => true,
     restart   => true,
+    provider  => 'init',
     require   => File['/etc/mongodb-mms/monitoring-agent.config']
   }  
   

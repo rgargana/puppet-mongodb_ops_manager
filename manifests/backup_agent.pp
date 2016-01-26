@@ -38,6 +38,7 @@ class mongodb_ops_manager::backup_agent(
     enable    => true,
     hasstatus => true,
     restart   => true,
+    provider  => 'init',
     require   => File['/etc/mongodb-mms/backup-agent.config']
   }
 

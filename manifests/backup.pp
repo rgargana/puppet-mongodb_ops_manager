@@ -41,6 +41,7 @@ class mongodb_ops_manager::backup (
     enable    => true,
     hasstatus => true,
     restart   => true,
+    provider  => 'init',
     require   => File['/opt/mongodb/mms-backup-daemon/conf/conf-daemon.properties']
   }
 
