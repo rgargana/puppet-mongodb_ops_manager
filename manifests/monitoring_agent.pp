@@ -7,21 +7,21 @@ class mongodb_ops_manager::monitoring_agent(
   $mmsApiKey   = '',
   $mmsGroupId  = '',
   $version     = '2.5.15.1526-1',
-  $platform    = 'rhel7',
+  $platform    = '.rhel7',
   $mmsBaseUrl  = 'http://127.0.0.1:8080',
 )
 {
 
   exec { 'download-mms-automation-agent':
-    command => "curl -OL ${mmsBaseUrl}/download/agent/automation/mongodb-mms-automation-agent-manager-${version}.x86_64.${platform}.rpm",
+    command => "curl -OL ${mmsBaseUrl}/download/agent/automation/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
     cwd     => '/tmp',
-    creates => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64$.{platform}.rpm",
+    creates => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
   }
 
   exec { 'install-mms-automation-agent':
     cwd     => '/tmp',
     creates => '/run/mongodb-mms-automation',
-    command => "rpm -U  \"/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64.${platform}.rpm\"",
+    command => "rpm -U  \"/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm\"",
     require => Exec['download-mms-automation-agent'],
     timeout => 0
   }
