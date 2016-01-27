@@ -12,7 +12,7 @@ class mongodb_ops_manager::monitoring_agent(
 {
 
   if $operatingsystemrelease =~ /^6.*/ {
-    $platform = nil
+    $platform = ''
   }
   elsif $operatingsystemrelease =~ /^7.*/ {
     $platform    = '.rhel7'
