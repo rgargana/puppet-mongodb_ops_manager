@@ -33,11 +33,10 @@ class mongodb_ops_manager::monitoring_agent(
  # }
   
   package {'mongodb-mms-automation-agent-manager.x86_64':
-    ensure => installed,
-    source => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
+    ensure   => installed,
+    source   => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
     provider => 'rpm',
-    require => Exec['download-mms-automation-agent'],
-    timeout => 0
+    require  => Exec['download-mms-automation-agent'],
   }
   
   file { '/etc/mongodb-mms/automation-agent.config':
