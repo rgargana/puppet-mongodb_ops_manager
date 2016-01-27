@@ -5,8 +5,7 @@ Install and Manage MongoDB Ops Manager (MMS On Premise)
 
 See:
 
-      http://mms.mongodb.com/help-hosted/v1.5/tutorial/install-on-prem-quick-start/
-      http://mms.mongodb.com/help-hosted/v1.5/tutorial/nav/install-on-prem/
+      https://docs.opsmanager.mongodb.com/current/installation/
 
 
 It relies on puppet module puppetlabs/mongodb to install the mongodb database.
@@ -28,7 +27,7 @@ Setup a backup mongodb on a separate server if using the backup daemon
       version      => '2.6.4-1',  
     }
   
-On the mms server install the application db, the mms application
+On the ops manager server install the application db, the mms application
 
     class { 'mongodb_ops_manager::application_db':
       logpath      => '/data/mmsdb/mongodb.log',
@@ -48,22 +47,22 @@ On the mms server install the application db, the mms application
       require               => Class['mongodb_ops_manager::application_db'] 
     }
     
-On the mms server install also install the backup daemon if doing backup of mongodb databases    
+On the ops manager server install also install the backup daemon if doing backup of mongodb databases    
   
     class { 'mongodb_ops_manager::backup':
       backup_db_host => 'backupserver',
       require        => Class['mongodb_ops_manager::application']
     } 
     
-Logon to the mms server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
+Logon to the ops manager server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
     
-On the mms server install monitoring agent specifying the mmiApiKey:    
+On the ops manager server install monitoring agent specifying the mmiApiKey:    
   
     class { 'mongodb_ops_manager::monitoring_agent':
       mmsApiKey => 'mmsApiKey'
     } 
     
-On the mms server install backup agent specifying the mmiApiKey (if backing up mongodb database) :        
+On the ops manager server install backup agent specifying the mmiApiKey (if backing up mongodb database) :        
 
     class { 'mongodb_ops_manager::backup_agent':
       mmsApiKey => 'mmsApiKey'

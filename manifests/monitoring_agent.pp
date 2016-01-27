@@ -14,13 +14,13 @@ class mongodb_ops_manager::monitoring_agent(
   exec { 'download-mms-monitoring-agent':
     command => "curl -OL ${mmsBaseUrl}/download/agent/automation/mongodb-mms-automation-agent-manager-${version}.x86_64.${platform}.rpm",
     cwd     => '/tmp',
-    creates => "/tmp/mongodb-mms-monitoring-agent-${version}.x86_64${platform}.rpm",
+    creates => "/tmp/mongodb-mms-monitoring-agent-${version}.x86_64$.{platform}.rpm",
   }
 
   exec { 'install-mms-monitoring-agent':
     cwd     => '/tmp',
     creates => '/usr/bin/mongodb-mms-monitoring-agent',
-    command => "rpm -U  \"/tmp/mongodb-mms-monitoring-agent-${version}.x86_64${platform}.rpm\"",
+    command => "rpm -U  \"/tmp/mongodb-mms-monitoring-agent-${version}.x86_64.${platform}.rpm\"",
     require => Exec['download-mms-monitoring-agent'],
     timeout => 0
   }
