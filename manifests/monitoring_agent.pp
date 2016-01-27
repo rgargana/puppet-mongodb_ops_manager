@@ -24,9 +24,18 @@ class mongodb_ops_manager::monitoring_agent(
     creates => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
   }
 
-  exec { 'install-mms-automation-agent':
-    cwd     => '/tmp',
-    command => "rpm -U  \"/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm\"",
+ # exec { 'install-mms-automation-agent':
+ #   cwd     => '/tmp',
+ #   command => "rpm -U  \"/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm\"",
+ #   yum list installed mongodb-mms-automation-agent-manager.x86_64
+ #   require => Exec['download-mms-automation-agent'],
+ #   timeout => 0
+ # }
+  
+  package {'mongodb-mms-automation-agent-manager.x86_64':
+    ensure => installed,
+    source => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
+    provider => 'rpm',
     require => Exec['download-mms-automation-agent'],
     timeout => 0
   }
@@ -36,7 +45,7 @@ class mongodb_ops_manager::monitoring_agent(
     owner   => 'mongod',
     group   => 'mongod',
     mode    => '0600',
-    require => Exec['install-mms-automation-agent'],
+    require => Package['mongodb-mms-automation-agent-manager.x86_64']  # Exec['install-mms-automation-agent'],
   }
   
   service { 'mongodb-mms-automation-agent':
