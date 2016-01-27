@@ -1,6 +1,6 @@
 # Class: mongodb_ops_manager::backup_db
 #
-# install mongodb for ops manager (mms on premise) backup.
+# install mongodb for ops manager backup.
 #
 #
 class mongodb_ops_manager::backup_db(
@@ -8,7 +8,7 @@ class mongodb_ops_manager::backup_db(
   $dbpath   = '/var/lib/mongodb',
   $dbparent = '/data',
   $port     = 27017,
-  $version  = '2.6.4-1',)
+  $version  = '2.6.11-1',)
 {
 
   class { 'epel': }
@@ -33,5 +33,10 @@ class mongodb_ops_manager::backup_db(
   class {'::mongodb::client':
     require => Class['::mongodb::server']
   }
+  
+  exec { 'chkconfig mongod on':
+    command => 'chkconfig mongod on',
+    require => Class['::mongodb::client'],
+  }  
 
 }

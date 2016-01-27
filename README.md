@@ -9,7 +9,7 @@ See:
 
 
 It relies on puppet module puppetlabs/mongodb to install the mongodb database.
-The mms application and mms mongodb database can be installed on one server.
+The opsmanager application and opsmanager mongodb database can be installed on one server.
 The backup database should be first installed on another server.
 
 Currently the scripts don't support authentication or replica sets for application and backup mongodb databases. 
@@ -24,7 +24,7 @@ Setup a backup mongodb on a separate server if using the backup daemon
     class { 'mongodb_ops_manager::backup_db':
       logpath      => '/data/backupdb/mongodb.log',
       dbpath       => '/data/backupdb',
-      version      => '2.6.4-1',  
+      version      => '2.6.11-1',  
     }
   
 On the ops manager server install the application db, the mms application
@@ -32,7 +32,7 @@ On the ops manager server install the application db, the mms application
     class { 'mongodb_ops_manager::application_db':
       logpath      => '/data/mmsdb/mongodb.log',
       dbpath       => '/data/mmsdb',
-      version      => '2.6.4-1',  
+      version      => '2.6.11-1',  
     }
   
     class { 'mongodb_ops_manager::application':
@@ -56,18 +56,13 @@ On the ops manager server install also install the backup daemon if doing backup
     
 Logon to the ops manager server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
     
-On the ops manager server install monitoring agent specifying the mmiApiKey:    
+On the ops manager server install automation agent specifying the mmiApiKey and :    
   
-    class { 'mongodb_ops_manager::monitoring_agent':
-      mmsApiKey => 'mmsApiKey'
+    class { 'mongodb_ops_manager::automation_agent':
+      mmsApiKey  => 'mmsApiKey',
+      mmsGroupId => 'mmsGroupId'
     } 
     
-On the ops manager server install backup agent specifying the mmiApiKey (if backing up mongodb database) :        
-
-    class { 'mongodb_ops_manager::backup_agent':
-      mmsApiKey => 'mmsApiKey'
-    } 
- 
 
 Detailed Usage:
 ===============

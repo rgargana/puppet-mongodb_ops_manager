@@ -1,9 +1,9 @@
-# Class: mongodb_ops_manager::monitoring_agent
+# Class: mongodb_ops_manager::automation_agent
 #
-# install mongodb monitoring_agent for mongodb ops manager (mms on premise).
+# install mongodb automation_agent for mongodb ops manager.
 #
 #
-class mongodb_ops_manager::monitoring_agent(
+class mongodb_ops_manager::automation_agent(
   $mmsApiKey   = '',
   $mmsGroupId  = '',
   $version     = '2.5.15.1526-1',
@@ -24,14 +24,6 @@ class mongodb_ops_manager::monitoring_agent(
     creates => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
   }
 
- # exec { 'install-mms-automation-agent':
- #   cwd     => '/tmp',
- #   command => "rpm -U  \"/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm\"",
- #   yum list installed mongodb-mms-automation-agent-manager.x86_64
- #   require => Exec['download-mms-automation-agent'],
- #   timeout => 0
- # }
-  
   package {'mongodb-mms-automation-agent-manager.x86_64':
     ensure   => installed,
     source   => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
@@ -54,6 +46,10 @@ class mongodb_ops_manager::monitoring_agent(
     restart   => true,
     require   => File['/etc/mongodb-mms/automation-agent.config']
   }  
-  
+
+  exec { 'chkconfig mongodb-mms-automation-agent on':
+    command => 'chkconfig mongodb-mms-automation-agent on',
+    require => Service['mongodb-mms-automation-agent'],
+  }
  
 }
