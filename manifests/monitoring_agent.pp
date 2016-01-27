@@ -7,10 +7,16 @@ class mongodb_ops_manager::monitoring_agent(
   $mmsApiKey   = '',
   $mmsGroupId  = '',
   $version     = '2.5.15.1526-1',
-  $platform    = '.rhel7',
   $mmsBaseUrl  = 'http://127.0.0.1:8080',
 )
 {
+
+  if $operatingsystemrelease =~ /^6.*/ {
+    $platform = ''
+  }
+  elsif $operatingsystemrelease =~ /^7.*/ {
+    $platform    = '.rhel7'
+  }
 
   exec { 'download-mms-automation-agent':
     command => "curl -OL ${mmsBaseUrl}/download/agent/automation/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
