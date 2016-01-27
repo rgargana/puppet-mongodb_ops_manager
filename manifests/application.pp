@@ -68,4 +68,5 @@ class mongodb_ops_manager::application (
     command => 'chkconfig mongodb-mms on',
     require => Service['mongodb-mms'],
   }
+
 }
