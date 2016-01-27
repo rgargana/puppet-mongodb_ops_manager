@@ -12,7 +12,7 @@ class mongodb_ops_manager::monitoring_agent(
 {
 
   if $operatingsystemrelease =~ /^6.*/ {
-    $platform = ''
+    $platform = nil
   }
   elsif $operatingsystemrelease =~ /^7.*/ {
     $platform    = '.rhel7'
@@ -26,7 +26,6 @@ class mongodb_ops_manager::monitoring_agent(
 
   exec { 'install-mms-automation-agent':
     cwd     => '/tmp',
-    creates => '/run/mongodb-mms-automation',
     command => "rpm -U  \"/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm\"",
     require => Exec['download-mms-automation-agent'],
     timeout => 0
