@@ -4,11 +4,12 @@
 #
 #
 class mongodb_ops_manager::backup_db(
-  $logpath  = '/var/log/mongodb/mongodb.log',
-  $dbpath   = '/var/lib/mongodb',
-  $dbparent = '/data',
-  $port     = 27017,
-  $version  = undef,)
+  $logpath       = '/var/log/mongodb/mongodb.log',
+  $dbpath        = '/var/lib/mongodb',
+  $dbparent      = '/data',
+  $port          = 27017,
+  $version       = undef,
+  $repo_location = undef,)
 {
 
   class { 'epel': }
@@ -18,6 +19,7 @@ class mongodb_ops_manager::backup_db(
     server_package_name => 'mongodb-org',
     bind_ip             => ['0.0.0.0'],
     version             => $version,
+    repo_location       => $repo_location,
     require             => Class['epel']
   }
 
