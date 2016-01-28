@@ -8,7 +8,7 @@ class mongodb_ops_manager::application_db(
   $dbpath   = '/var/lib/mongodb',
   $dbparent = '/data',
   $port     = 27017,
-  $version  = '2.6.11-1',)
+  $version  = undef,)
 {
 
   class { 'epel': }
