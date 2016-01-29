@@ -47,7 +47,7 @@ class mongodb_ops_manager::automation_agent(
     require   => File['/etc/mongodb-mms/automation-agent.config']
   }  
 
-  exec { '':
+  exec { 'chkconfig mongodb-mms-automation-agent on':
     command => 'chkconfig mongodb-mms-automation-agent on',
     require => Service['mongodb-mms-automation-agent'],
   }

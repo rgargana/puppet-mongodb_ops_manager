@@ -12,7 +12,9 @@ class mongodb_ops_manager::application_db(
   $repo_location = undef,)
 {
 
-  class { 'epel': }
+  if !defined(Class['epel']) {
+    class { 'epel': }
+  }
 
   class { '::mongodb::globals':
     manage_package_repo => true,
