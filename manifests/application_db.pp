@@ -8,8 +8,8 @@ class mongodb_ops_manager::application_db(
   $dbpath   = '/var/lib/mongodb',
   $dbparent = '/data',
   $port     = 27017,
-  $version  = undef,
-  $repo_location = undef,)
+#  $repo_location = undef,
+  $version  = undef,)
 {
 
   if !defined(Class['epel']) {
@@ -21,7 +21,7 @@ class mongodb_ops_manager::application_db(
     server_package_name => 'mongodb-org',
     bind_ip             => ['0.0.0.0'],
     version             => $version,
-    repo_location       => $repo_location,
+#    repo_location       => $repo_location,
     require             => Class['epel']
   }
 
