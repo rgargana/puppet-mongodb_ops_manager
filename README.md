@@ -1,7 +1,7 @@
 puppet-mongodb_ops_manager
 ==========================
 
-Install and Manage MongoDB Ops Manager (MMS On Premise)
+Install and Manage MongoDB Ops Manager (MMS)
 
 See:
 
@@ -9,11 +9,12 @@ See:
 
 
 It relies on puppet module puppetlabs/mongodb to install the mongodb database.
-The opsmanager application and opsmanager mongodb database can be installed on one server.
+The ops manager application and ops manager mongodb database can be installed on one server.
 The backup database should be first installed on another server.
 
-Currently the scripts don't support authentication or replica sets for application and backup mongodb databases. 
-NOTE: *** This is a very much a first version and currently support readhat/centos. ***  
+Currently the scripts don't support authentication or replica sets for application or backup mongodb databases.
+
+NOTE: *** This is a very much a first version and currently support readhat/centos 6 and 7. However its a great way to get started ***
 
 
 Minimal Usage: 
@@ -54,14 +55,20 @@ On the ops manager server install also install the backup daemon if doing backup
       require        => Class['mongodb_ops_manager::application']
     } 
     
-Logon to the ops manager server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
+Logon to the ops manager server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey and mmsGroupId.     
     
-On the ops manager server install automation agent specifying the mmiApiKey and :    
+On the ops manager server install automation agent specifying :
   
     class { 'mongodb_ops_manager::automation_agent':
-      mmsApiKey  => 'mmsApiKey',
-      mmsGroupId => 'mmsGroupId'
+      mmsApiKey                            => 'mmsApiKey',
+      mmsGroupId                           => 'mmsGroupId'
+      mmsBaseUrl                           => 'http://mms.mycompany.com:8080',
+      sslRequireValidMMSServerCertificates => false
     } 
+
+Intially its easier to setup without SSL certificates and then change it to true later. 
+
+NOTE: sslRequireValidMMSServerCertificates defaults to true.
     
 
 Detailed Usage:
