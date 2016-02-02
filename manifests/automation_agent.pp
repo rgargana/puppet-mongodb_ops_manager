@@ -4,10 +4,11 @@
 #
 #
 class mongodb_ops_manager::automation_agent(
-  $mmsApiKey   = '',
-  $mmsGroupId  = '',
-  $version     = '2.5.15.1526-1',
-  $mmsBaseUrl  = 'http://127.0.0.1:8080',
+  $mmsApiKey                            = '',
+  $mmsGroupId                           = '',
+  $version                              = '2.5.15.1526-1',
+  $mmsBaseUrl                           = 'http://127.0.0.1:8080',
+  $sslRequireValidMMSServerCertificates = true
 )
 {
 
