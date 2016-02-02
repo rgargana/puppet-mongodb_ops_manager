@@ -4,7 +4,7 @@
 #
 #
 class mongodb_ops_manager::application (
-  $version               = '1.5.3.182-1',
+  $version               = '2.0.1.332-1',
   $https_proxy           = '',
   $mms_host              = '127.0.0.1',
   $from_email_addr       = 'mms-admin@example.net',
@@ -60,6 +60,13 @@ class mongodb_ops_manager::application (
     enable    => true,
     hasstatus => true,
     restart   => true,
+    provider  => 'init',
     require   => File['/opt/mongodb/mms/conf/conf-mms.properties']
   }
+  
+  exec { 'chkconfig mongodb-mms on':
+    command => 'chkconfig mongodb-mms on',
+    require => Service['mongodb-mms'],
+  }
+
 }

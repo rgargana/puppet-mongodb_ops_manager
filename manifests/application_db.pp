@@ -8,16 +8,20 @@ class mongodb_ops_manager::application_db(
   $dbpath   = '/var/lib/mongodb',
   $dbparent = '/data',
   $port     = 27017,
-  $version  = '2.6.4-1',)
+#  $repo_location = undef,
+  $version  = undef,)
 {
 
-  class { 'epel': }
+  if !defined(Class['epel']) {
+    class { 'epel': }
+  }
 
   class { '::mongodb::globals':
     manage_package_repo => true,
     server_package_name => 'mongodb-org',
     bind_ip             => ['0.0.0.0'],
     version             => $version,
+#    repo_location       => $repo_location,
     require             => Class['epel']
   }
 
@@ -32,6 +36,21 @@ class mongodb_ops_manager::application_db(
   
   class {'::mongodb::client':
     require => Class['::mongodb::server']
+  }
+  
+  # this seems to be missing in centos 7
+  file { '/var/run/mongodb':
+    ensure => 'directory',
+    owner  => 'mongod',
+    group  => 'mongod',
+    onlyif => '/usr/bin/test -e /var/run',
+    mode   => '0755',
+    require => Class['::mongodb::client'],
+  }
+  
+  exec { 'chkconfig mongod on':
+    command => 'chkconfig mongod on',
+    require => File['/var/run/mongodb'],
   }
 
 }

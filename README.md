@@ -1,20 +1,20 @@
 puppet-mongodb_ops_manager
 ==========================
 
-Install and Manage MongoDB Ops Manager (MMS On Premise)
+Install and Manage MongoDB Ops Manager (MMS)
 
 See:
 
-      http://mms.mongodb.com/help-hosted/v1.5/tutorial/install-on-prem-quick-start/
-      http://mms.mongodb.com/help-hosted/v1.5/tutorial/nav/install-on-prem/
+      https://docs.opsmanager.mongodb.com/current/installation/
 
 
 It relies on puppet module puppetlabs/mongodb to install the mongodb database.
-The mms application and mms mongodb database can be installed on one server.
+The ops manager application and ops manager mongodb database can be installed on one server.
 The backup database should be first installed on another server.
 
-Currently the scripts don't support authentication or replica sets for application and backup mongodb databases. 
-NOTE: *** This is a very much a first version and currently support readhat/centos. ***  
+Currently the scripts don't support authentication or replica sets for application or backup mongodb databases.
+
+NOTE: *** This is a very much a first version and currently support readhat/centos 6 and 7. However its a great way to get started ***
 
 
 Minimal Usage: 
@@ -25,15 +25,15 @@ Setup a backup mongodb on a separate server if using the backup daemon
     class { 'mongodb_ops_manager::backup_db':
       logpath      => '/data/backupdb/mongodb.log',
       dbpath       => '/data/backupdb',
-      version      => '2.6.4-1',  
+      version      => '2.6.11-1',  
     }
   
-On the mms server install the application db, the mms application
+On the ops manager server install the application db, the mms application
 
     class { 'mongodb_ops_manager::application_db':
       logpath      => '/data/mmsdb/mongodb.log',
       dbpath       => '/data/mmsdb',
-      version      => '2.6.4-1',  
+      version      => '2.6.11-1',  
     }
   
     class { 'mongodb_ops_manager::application':
@@ -48,27 +48,28 @@ On the mms server install the application db, the mms application
       require               => Class['mongodb_ops_manager::application_db'] 
     }
     
-On the mms server install also install the backup daemon if doing backup of mongodb databases    
+On the ops manager server install also install the backup daemon if doing backup of mongodb databases    
   
     class { 'mongodb_ops_manager::backup':
       backup_db_host => 'backupserver',
       require        => Class['mongodb_ops_manager::application']
     } 
     
-Logon to the mms server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey.     
+Logon to the ops manager server (http://mms.mycompany.com:8080) and register a user and find the mmsApiKey and mmsGroupId.     
     
-On the mms server install monitoring agent specifying the mmiApiKey:    
+On the ops manager server install automation agent specifying :
   
-    class { 'mongodb_ops_manager::monitoring_agent':
-      mmsApiKey => 'mmsApiKey'
+    class { 'mongodb_ops_manager::automation_agent':
+      mmsApiKey                            => 'mmsApiKey',
+      mmsGroupId                           => 'mmsGroupId'
+      mmsBaseUrl                           => 'http://mms.mycompany.com:8080',
+      sslRequireValidMMSServerCertificates => false
     } 
-    
-On the mms server install backup agent specifying the mmiApiKey (if backing up mongodb database) :        
 
-    class { 'mongodb_ops_manager::backup_agent':
-      mmsApiKey => 'mmsApiKey'
-    } 
- 
+Intially its easier to setup without SSL certificates and then change it to true later. 
+
+NOTE: sslRequireValidMMSServerCertificates defaults to true.
+    
 
 Detailed Usage:
 ===============
