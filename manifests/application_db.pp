@@ -38,9 +38,19 @@ class mongodb_ops_manager::application_db(
     require => Class['::mongodb::server']
   }
   
+  # this seems to be missing in centos 7
+  file { '/var/run/mongodb':
+    ensure => 'directory',
+    owner  => 'mongod',
+    group  => 'mongod',
+    onlyif => '/usr/bin/test -e /var/run',
+    mode   => '0755',
+    require => Class['::mongodb::client'],
+  }
+  
   exec { 'chkconfig mongod on':
     command => 'chkconfig mongod on',
-    require => Class['::mongodb::client'],
+    require => File['/var/run/mongodb'],
   }
 
 }
