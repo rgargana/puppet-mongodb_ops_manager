@@ -64,9 +64,4 @@ class mongodb_ops_manager::application (
     require   => File['/opt/mongodb/mms/conf/conf-mms.properties']
   }
   
-  exec { 'chkconfig mongodb-mms on':
-    command => 'chkconfig mongodb-mms on',
-    require => Service['mongodb-mms'],
-  }
-
 }

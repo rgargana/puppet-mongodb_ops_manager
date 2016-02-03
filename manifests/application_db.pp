@@ -16,6 +16,18 @@ class mongodb_ops_manager::application_db(
     class { 'epel': }
   }
 
+  if $operatingsystemrelease =~ /^7.*/ {
+    file {'/etc/tmpfiles.d/mongod.conf':
+      ensure  => file,
+      owner   => root,
+      group   => root,
+      mode    => '0644',
+      content => 'D /var/run/mongodb 0755 mongod mongod -',
+      onlyif  => '/usr/bin/test -d /etc/tmpfiles.d'
+      require => Class['epel']
+    }
+  }
+
   class { '::mongodb::globals':
     manage_package_repo => true,
     server_package_name => 'mongodb-org',
