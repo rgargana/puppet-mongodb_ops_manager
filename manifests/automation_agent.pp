@@ -37,7 +37,7 @@ class mongodb_ops_manager::automation_agent(
     owner   => 'mongod',
     group   => 'mongod',
     mode    => '0600',
-    require => Package['mongodb-mms-automation-agent-manager.x86_64']  # Exec['install-mms-automation-agent'],
+    require => Package['mongodb-mms-automation-agent-manager.x86_64'],
   }
   
   service { 'mongodb-mms-automation-agent':
@@ -46,11 +46,6 @@ class mongodb_ops_manager::automation_agent(
     hasstatus => true,
     restart   => true,
     require   => File['/etc/mongodb-mms/automation-agent.config']
-  }  
-
-  exec { 'chkconfig mongodb-mms-automation-agent on':
-    command => 'chkconfig mongodb-mms-automation-agent on',
-    require => Service['mongodb-mms-automation-agent'],
   }
  
 }

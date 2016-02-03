@@ -37,12 +37,12 @@ class mongodb_ops_manager::backup_db(
   }
 
   class {'::mongodb::server':
-    auth        => false,
-    verbose     => true,
-    logpath     => $logpath,
-    dbpath      => $dbpath,
-    port        => $port,
-    require     => Class['::mongodb::globals']
+    auth    => false,
+    verbose => true,
+    logpath => $logpath,
+    dbpath  => $dbpath,
+    port    => $port,
+    require => Class['::mongodb::globals']
   }
   
   class {'::mongodb::client':
