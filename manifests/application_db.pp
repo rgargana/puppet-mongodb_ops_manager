@@ -27,13 +27,13 @@ class mongodb_ops_manager::application_db(
   }
 
   class {'::mongodb::server':
-    auth         => false,
-    verbose      => true,
-    logpath      => $logpath,
-    dbpath       => $dbpath,
-    $pidfilepath => $pidfilepath,
-    port         => $port,
-    require      => Class['::mongodb::globals']
+    auth        => false,
+    verbose     => true,
+    logpath     => $logpath,
+    dbpath      => $dbpath,
+    pidfilepath => $pidfilepath,
+    port        => $port,
+    require     => Class['::mongodb::globals']
   }
   
   class {'::mongodb::client':
