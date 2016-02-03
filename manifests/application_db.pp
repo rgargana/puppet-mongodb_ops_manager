@@ -8,7 +8,6 @@ class mongodb_ops_manager::application_db(
   $dbpath      = '/var/lib/mongodb',
   $dbparent    = '/data',
   $port        = 27017,
-  $pidfilepath = '/var/run',
 #  $repo_location = undef,
   $version  = undef,)
 {
@@ -31,7 +30,6 @@ class mongodb_ops_manager::application_db(
     verbose     => true,
     logpath     => $logpath,
     dbpath      => $dbpath,
-    pidfilepath => $pidfilepath,
     port        => $port,
     require     => Class['::mongodb::globals']
   }
