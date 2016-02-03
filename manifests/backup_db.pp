@@ -4,12 +4,13 @@
 #
 #
 class mongodb_ops_manager::backup_db(
-  $logpath       = '/var/log/mongodb/mongodb.log',
-  $dbpath        = '/var/lib/mongodb',
-  $dbparent      = '/data',
-  $port          = 27017,
+  $logpath      = '/var/log/mongodb/mongodb.log',
+  $dbpath       = '/var/lib/mongodb',
+  $dbparent     = '/data',
+  $port         = 27017,
+  $pidfilepath  = '/var/run',
 #  $repo_location = undef,
-  $version       = undef,  )
+  $version      = undef,  )
 {
 
   if !defined(Class['epel']) {
@@ -26,31 +27,17 @@ class mongodb_ops_manager::backup_db(
   }
 
   class {'::mongodb::server':
-    auth    => false,
-    verbose => true,
-    logpath => $logpath,
-    dbpath  => $dbpath,
-    port    => $port,
-    require => Class['::mongodb::globals']
+    auth         => false,
+    verbose      => true,
+    logpath      => $logpath,
+    dbpath       => $dbpath,
+    $pidfilepath => $pidfilepath,    
+    port         => $port,
+    require      => Class['::mongodb::globals']
   }
   
   class {'::mongodb::client':
     require => Class['::mongodb::server']
   }
   
-  # this seems to be missing in centos 7
-  file { '/var/run/mongodb':
-    ensure => 'directory',
-    owner  => 'mongod',
-    group  => 'mongod',
-    onlyif => '/usr/bin/test -e /var/run',
-    mode   => '0755',
-    require => Class['::mongodb::client'],
-  }
-  
-  exec { 'chkconfig mongod on':
-    command => 'chkconfig mongod on',
-    require => File['/var/run/mongodb'],
-  }
-
 }
