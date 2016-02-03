@@ -23,7 +23,6 @@ class mongodb_ops_manager::backup_db(
       group   => root,
       mode    => '0644',
       content => 'D /var/run/mongodb 0755 mongod mongod -',
-      onlyif  => '/usr/bin/test -d /etc/tmpfiles.d',
       require => Class['epel']
     }
   }
