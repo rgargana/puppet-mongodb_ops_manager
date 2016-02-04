@@ -60,6 +60,7 @@ class mongodb_ops_manager::application (
     enable    => true,
     hasstatus => true,
     restart   => true,
+    provider  => 'init',
     require   => File['/opt/mongodb/mms/conf/conf-mms.properties']
   }
   
