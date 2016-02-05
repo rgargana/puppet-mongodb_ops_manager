@@ -60,7 +60,7 @@ class mongodb_ops_manager::application (
     exec { "fix RHEL Bug 1285492":
       command => "rm /etc/init.d/mongodb-mms && cp /opt/mongodb/mms/bin/mongodb-mms /etc/init.d && sed -i '/ABS_PATH=\"$( resolvepath $0 )\"/c\\ABS_PATH=\"$( resolvepath /opt/mongodb/mms/bin/mongodb-mms )\"' /etc/init.d/mongodb-mms",
       cwd     => '/tmp',
-      onlyif  => '/usr/bin/test -L /etc/init.d/mongodb-mms'
+      onlyif  => '/usr/bin/test -L /etc/init.d/mongodb-mms',
       before  => Service['mongodb-mms'],
       require => File['/opt/mongodb/mms/conf/conf-mms.properties']
     }
