@@ -58,9 +58,9 @@ class mongodb_ops_manager::application (
   if ($operatingsystemrelease =~ /^7.1/) or ($operatingsystemrelease =~ /^7.2/) {
     # Ops Manager will not start automatically on boot up on RHEL 7.1 and 7.2
     exec { "fix RHEL Bug 1285492":
-      command => "cp -r /opt/mongodb/mms/bin/mongodb-mms /etc/init.d && sed -i '/ABS_PATH=\"$( resolvepath $0 )\"/c\ABS_PATH=\"$( resolvepath /opt/mongodb/mms/bin/mongodb-mms )\"' /etc/init.d/mongodb-mms",
+      command => "cp -r /opt/mongodb/mms/bin/mongodb-mms /etc/init.d && sed -i '/ABS_PATH=\"$( resolvepath $0 )\"/c\\ABS_PATH=\"$( resolvepath /opt/mongodb/mms/bin/mongodb-mms )\"' /etc/init.d/mongodb-mms",
       cwd     => '/tmp',
-      before  => Service['mongodb-mms']
+      before  => Service['mongodb-mms'],
       require => File['/opt/mongodb/mms/conf/conf-mms.properties']
     }
   }
