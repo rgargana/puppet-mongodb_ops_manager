@@ -21,7 +21,7 @@ class mongodb_ops_manager::application (
   $db_port               = '27017',
   $user                  = 'mongodb-mms',
   $group                 = 'mongodb-mms')
-  
+
 {
 
   # needed to do a sudo in redhat
@@ -30,22 +30,24 @@ class mongodb_ops_manager::application (
     path   => '/etc/sudoers',
     line   => 'Defaults:root !requiretty'
   }
-  
+
   exec { 'download-mms-onprem':
     command     => "curl -OL https://downloads.mongodb.com/on-prem-mms/rpm/mongodb-mms-${version}.x86_64.rpm",
     cwd         => '/tmp',
+    path        => '/usr/bin:$PATH',
     environment => ["https_proxy=${https_proxy}"],
     creates     => "/tmp/mongodb-mms-${version}.x86_64.rpm",
     require     => File_line['/etc/sudoers']
   }
-  
+
   exec { "rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm":
     command => "rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm",
+    path    => '/bin:$PATH',
     cwd     => '/tmp',
     unless  => "rpm -q mongodb-mms-${version}",
     require => Exec['download-mms-onprem']
   }
-  
+
   file { '/opt/mongodb/mms/conf/conf-mms.properties':
     ensure  => file,
     owner   => $user,
@@ -74,5 +76,5 @@ class mongodb_ops_manager::application (
     provider  => 'init',
     require   => File['/opt/mongodb/mms/conf/conf-mms.properties']
   }
-  
+
 }
