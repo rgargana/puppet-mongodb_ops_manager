@@ -27,22 +27,13 @@ class mongodb_ops_manager::application_db(
     }
   }
 
-  class {'::mongodb::globals':
+  class { '::mongodb::globals':
+    manage_package_repo => true,
     server_package_name => 'mongodb-org',
     bind_ip             => ['0.0.0.0'],
     version             => $version,
-  #  repo_location       => $repo_location,
+#    repo_location       => $repo_location,
     require             => Class['epel']
-    }
-
-  class {'::mongodb::client':
-    package_name => 'mongodb-org-shell'
-  }
-
-  file_line { 'add small files to mongodb config':
-    path => '/etc/mongod.conf',
-    line => 'storage:
-   smallFiles: true',
   }
 
   class {'::mongodb::server':
@@ -52,5 +43,15 @@ class mongodb_ops_manager::application_db(
     dbpath  => $dbpath,
     port    => $port,
     require => Class['::mongodb::globals']
+  }
+
+  class {'::mongodb::client':
+    require => Class['::mongodb::server']
+  }
+
+  file_line { 'add small files to mongodb config':
+    path => '/etc/mongod.conf',
+    line => 'storage:
+   smallFiles: true',
   }
 }
