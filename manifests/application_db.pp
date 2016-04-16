@@ -52,6 +52,7 @@ class mongodb_ops_manager::application_db(
   file_line { 'add small files to mongodb config':
     path => '/etc/mongod.conf',
     line => 'storage:
-   smallFiles: true',
+   mmapv1:
+      smallFiles: true',
   }
 }
