@@ -28,14 +28,15 @@ class mongodb_ops_manager::application_db(
   }
 
   class {'::mongodb::globals':
-    manage_package_repo => true,
-    server_package_name => 'mongodb-enterprise',
-    repo_location       => 'https://repo.mongodb.com/yum/redhat/$releasever/mongodb-enterprise/3.0/$basearch/',
-    version             => '3.0.8-1.el6',
+    server_package_name => 'mongodb-org',
+    bind_ip             => ['0.0.0.0'],
+    version             => $version,
+  #  repo_location       => $repo_location,
+    require             => Class['epel']
     }
 
   class {'::mongodb::client':
-    package_name => 'mongodb-enterprise-shell'
+    package_name => 'mongodb-org-shell'
   }
 
   file_line { 'add small files to mongodb config':
