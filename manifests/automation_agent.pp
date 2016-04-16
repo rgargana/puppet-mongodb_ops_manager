@@ -30,7 +30,6 @@ class mongodb_ops_manager::automation_agent(
     ensure   => installed,
     source   => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
     provider => 'rpm',
-    path     => '/bin:$PATH',
     require  => Exec['download-mms-automation-agent'],
   }
 
