@@ -38,6 +38,13 @@ class mongodb_ops_manager::application_db(
     package_name => 'mongodb-enterprise-shell'
   }
 
+  file_line { 'add small files to mongodb config':
+    path => '/etc/mongod.conf',
+    line => 'storage:
+   mmapv1:
+     smallFiles: true',
+  }
+
   class {'::mongodb::server':
     auth    => false,
     verbose => true,
