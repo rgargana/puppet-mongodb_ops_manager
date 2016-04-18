@@ -20,7 +20,10 @@ class mongodb_ops_manager::application (
   $db_host               = '127.0.0.1',
   $db_port               = '27017',
   $user                  = 'mongodb-mms',
-  $group                 = 'mongodb-mms')
+  $group                 = 'mongodb-mms',
+  $pem_key_file          = '',
+  $pem_key_file_password = '',
+  )
 
 {
 
