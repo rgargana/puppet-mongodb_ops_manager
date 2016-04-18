@@ -7,6 +7,7 @@ class mongodb_ops_manager::application (
   $version               = '2.0.1.332-1',
   $https_proxy           = '',
   $mms_host              = '127.0.0.1',
+  $mms_central_url_port  = '8080',
   $from_email_addr       = 'mms-admin@example.net',
   $reply_to_email_addr   = 'mms-admin@example.net',
   $admin_from_email_addr = 'mms-admin@example.net',
