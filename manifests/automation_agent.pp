@@ -39,6 +39,7 @@ class mongodb_ops_manager::automation_agent(
     group   => 'mongod',
     mode    => '0600',
     require => Package['mongodb-mms-automation-agent-manager.x86_64'],
+    notify  => Service['mongodb-mms-automation-agent']
   }
 
   service { 'mongodb-mms-automation-agent':

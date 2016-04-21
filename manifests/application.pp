@@ -61,7 +61,8 @@ class mongodb_ops_manager::application (
     group   => $group,
     mode    => '0755',
     content => template('mongodb_ops_manager/conf-mms.properties.erb'),
-    require => Exec["rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm"]
+    require => Exec["rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm"],
+    notify  => Service['mongodb-mms']
   }
 
   file { '/opt/mongodb/mms/conf/mms.conf':
@@ -70,7 +71,8 @@ class mongodb_ops_manager::application (
     group   => $group,
     mode    => '0755',
     content => template('mongodb_ops_manager/mms.conf.erb'),
-    require => Exec["rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm"]
+    require => Exec["rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm"],
+    notify  => Service['mongodb-mms']
   }
 
   if ($operatingsystemrelease =~ /^7.1/) or ($operatingsystemrelease =~ /^7.2/) {
