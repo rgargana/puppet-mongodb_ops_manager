@@ -7,6 +7,8 @@ class mongodb_ops_manager::application (
   $version               = '2.0.1.332-1',
   $https_proxy           = '',
   $url_prefix            = 'http://',
+  $base_port             = '8080',
+  $base_ssl_port         = '8443',
   $mms_host              = '127.0.0.1',
   $mms_central_url_port  = '8080',
   $from_email_addr       = 'mms-admin@example.net',
@@ -59,6 +61,15 @@ class mongodb_ops_manager::application (
     group   => $group,
     mode    => '0755',
     content => template('mongodb_ops_manager/conf-mms.properties.erb'),
+    require => Exec["rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm"]
+  }
+
+  file { '/opt/mongodb/mms/conf/mms.conf':
+    ensure  => file,
+    owner   => $user,
+    group   => $group,
+    mode    => '0755',
+    content => template('mongodb_ops_manager/mms.conf.erb'),
     require => Exec["rpm --install /tmp/mongodb-mms-${version}.x86_64.rpm"]
   }
 
