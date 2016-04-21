@@ -20,7 +20,7 @@ class mongodb_ops_manager::automation_agent(
   }
 
   exec { 'download-mms-automation-agent':
-    command => "curl -OL ${mmsBaseUrl}/download/agent/automation/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
+    command => "curl -OL --insecure ${mmsBaseUrl}/download/agent/automation/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
     cwd     => '/tmp',
     path    => '/usr/bin:$PATH',
     creates => "/tmp/mongodb-mms-automation-agent-manager-${version}.x86_64${platform}.rpm",
