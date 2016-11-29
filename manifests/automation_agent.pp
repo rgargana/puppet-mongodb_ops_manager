@@ -41,6 +41,13 @@ class mongodb_ops_manager::automation_agent(
     require => Package['mongodb-mms-automation-agent-manager.x86_64'],
     notify  => Service['mongodb-mms-automation-agent']
   }
+  
+  file { '/etc/logrotate.d/mongodb-mms-automation-agent':
+    content => template('mongodb_ops_manager/automation-agent-logrotate.conf.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644'
+  }
 
   service { 'mongodb-mms-automation-agent':
     ensure    => running,
