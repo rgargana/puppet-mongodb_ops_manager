@@ -1,6 +1,6 @@
 {
   "name": "neillturner-mongodb_ops_manager",
-  "version": "0.1.2",
+  "version": "0.3.1",
   "author": "neillturner",
   "license": "Apache-2.0",
   "summary": "MongoDB Ops Manager (MMS) server and agent installs",

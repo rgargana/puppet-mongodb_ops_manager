@@ -41,6 +41,15 @@ class mongodb_ops_manager::automation_agent(
     require => Package['mongodb-mms-automation-agent-manager.x86_64'],
     notify  => Service['mongodb-mms-automation-agent']
   }
+ 
+  file { '/etc/mongodb-mms/server-pool.properties':
+    content => template('mongodb_ops_manager/server-pool.properties.erb'),
+    owner   => 'mongod',
+    group   => 'mongod',
+    mode    => '0644',
+    require => Package['mongodb-mms-automation-agent-manager.x86_64'],
+    notify  => Service['mongodb-mms-automation-agent']
+  }
   
   file { '/etc/logrotate.d/mongodb-mms-automation-agent':
     content => template('mongodb_ops_manager/automation-agent-logrotate.conf.erb'),

@@ -1,0 +1,18 @@
+{
+  "README.md": "d1e696c4e8f6f9924c1c54d49a9c3353",
+  "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
+  "manifests/application.pp": "febcbf189037e5f5eaa2007aac644fe3",
+  "manifests/application_db.pp": "b95d98dc56d80d7db186d791dae0643f",
+  "manifests/automation_agent.pp": "878eef417e5e866920f3f20523fcace4",
+  "manifests/backup.pp": "b95d98dc56d80d7db186d791dae0643f",
+  "manifests/backup_db.pp": "7b797207549ad33e688c9f8dfbb026b9",
+  "manifests/init.pp": "aa7c5e99048e8e773b9ecaec96be481f",
+  "metadata.json": "d1e696c4e8f6f9924c1c54d49a9c3353",
+  "templates/automation-agent.config.erb": "4d6b76b58b894227ae94f013919516ee",
+  "templates/automation-agent-logrotate.conf.erb": "002ff5766384c0102f807dc2f5f79a93",
+  "templates/backup-agent.config.erb": "f81f46ee40a4c8cdfbcf783f22ba7856",
+  "templates/conf-daemon.properties.erb": "8a2360d20f7c98bc1dd9399987eb7106",
+  "templates/conf-mms.properties.erb": "b018ee23e1ece1b63e7ebf19d11f17f0",
+  "templates/mms.conf.erb": "ed6e00045ad1898be382d30eab15b5b9",
+  "templates/server-pool.properties.erb": "b7018213f7f09402be55bd638a9b3452",
+}

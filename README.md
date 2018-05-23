@@ -64,6 +64,9 @@ On the ops manager server install automation agent specifying :
       mmsGroupId                           => 'mmsGroupId'
       mmsBaseUrl                           => 'http://mms.mycompany.com:8080',
       sslRequireValidMMSServerCertificates => false
+      serverPoolKey                        => 'serverPoolKey' 
+      serverPoolProperties                 => hash of '<property:<value>'
+} 
     } 
 
 Intially its easier to setup without SSL certificates and then change it to true later. 
